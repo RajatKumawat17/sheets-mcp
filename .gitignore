@@ -192,3 +192,14 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+
+.gitignore
+
+client_secret.json
+
+credentials.json
+
+token.json
+
+test_data.json
+

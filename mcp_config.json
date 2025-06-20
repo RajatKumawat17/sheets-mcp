@@ -1,0 +1,146 @@
+{
+  "name": "google_sheets",
+  "description": "Google Sheets MCP Server for Claude Desktop",
+  "version": "1.0.0",
+  "server": {
+    "type": "http",
+    "host": "127.0.0.1",
+    "port": 8000,
+    "command": [
+      "python",
+      "google_sheets.py",
+      "--credentials-path",
+      "client_secret.json",
+      "--log-level",
+      "INFO"
+    ],
+    "health_check": {
+      "endpoint": "/health",
+      "interval": 5,
+      "timeout": 2
+    }
+  },
+  "tools": [
+    {
+      "name": "create_sheet",
+      "description": "Create a new Google Sheet",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Title of the new sheet"
+          }
+        },
+        "required": ["title"]
+      }
+    },
+    {
+      "name": "format_range",
+      "description": "Format a range of cells in a sheet",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "file_id": {
+            "type": "string",
+            "description": "The ID of the Google Sheet"
+          },
+          "range": {
+            "type": "string",
+            "description": "A1 notation range (e.g., 'Sheet1!A1:B10')"
+          },
+          "format": {
+            "type": "object",
+            "description": "Dictionary containing format options"
+          }
+        },
+        "required": ["file_id", "range", "format"]
+      }
+    },
+    {
+      "name": "write_formula",
+      "description": "Write a formula to a range of cells",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "file_id": {
+            "type": "string",
+            "description": "The ID of the Google Sheet"
+          },
+          "range": {
+            "type": "string",
+            "description": "A1 notation range (e.g., 'Sheet1!A1')"
+          },
+          "formula": {
+            "type": "string",
+            "description": "The formula to write (e.g., '=SUM(A1:A10)')"
+          }
+        },
+        "required": ["file_id", "range", "formula"]
+      }
+    },
+    {
+      "name": "add_sheet",
+      "description": "Add a new sheet to an existing spreadsheet",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "file_id": {
+            "type": "string",
+            "description": "The ID of the Google Sheet"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the new sheet"
+          }
+        },
+        "required": ["file_id", "title"]
+      }
+    },
+    {
+      "name": "delete_sheet",
+      "description": "Delete a sheet from a spreadsheet",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "file_id": {
+            "type": "string",
+            "description": "The ID of the Google Sheet"
+          },
+          "sheet_id": {
+            "type": "integer",
+            "description": "The ID of the sheet to delete"
+          }
+        },
+        "required": ["file_id", "sheet_id"]
+      }
+    },
+    {
+      "name": "get_sheet_properties",
+      "description": "Get properties of all sheets in a spreadsheet",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "file_id": {
+            "type": "string",
+            "description": "The ID of the Google Sheet"
+          }
+        },
+        "required": ["file_id"]
+      }
+    },
+    {
+      "name": "summarize_sheet",
+      "description": "Summarize the contents of a spreadsheet",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "file_id": {"type": "string"},
+          "sheet_name": {"type": "string"},
+          "range": {"type": "string"}
+        },
+        "required": ["file_id"]
+      }
+    }
+  ]
+}
