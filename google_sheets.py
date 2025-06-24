@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
-"""
-Google Sheets MCP Server for Azure OpenAI
 
-A Model Context Protocol server for Google Sheets that can be used with Azure OpenAI.
-"""
 import os
 import sys
 import json
